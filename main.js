@@ -23,7 +23,7 @@ canvas.style.height = '100%';
 canvas.style.zIndex = '-1';
 
 // Definir la geometría del plano
-var geometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
+var geometry = new THREE.PlaneGeometry(8, 8);
 
 // Definir los uniformes del shader
 var uniforms = {
@@ -91,8 +91,8 @@ function onWindowResize() {
   renderer.setPixelRatio(window.devicePixelRatio || 1);
 
   // Ajustar el tamaño de la geometría del plano
-  geometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
-  plane.geometry = geometry;
+  //geometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
+  //plane.geometry = geometry;
 
   // Actualizar la resolución uniforme
   uniforms.iResolution.value.set(window.innerWidth, window.innerHeight);
