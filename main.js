@@ -74,6 +74,7 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio || 1);
 
   // Ajustar el tamaño de la geometría del plano
   geometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
