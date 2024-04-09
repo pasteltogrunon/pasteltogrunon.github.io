@@ -23,7 +23,7 @@ canvas.style.height = '100%';
 canvas.style.zIndex = '-1';
 
 // Definir la geometría del plano
-var geometry = new THREE.PlaneGeometry(2, 2);
+var geometry = new THREE.PlaneBufferGeometry(2, 2);
 
 // Definir los uniformes del shader
 var uniforms = {
