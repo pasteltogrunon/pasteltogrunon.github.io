@@ -10,8 +10,17 @@ camera.updateProjectionMatrix();
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(devicePixelRatio)
-renderer.setViewport(0, 0, innerWidth, innerHeight)
-document.body.appendChild(renderer.domElement);
+var canvas = renderer.domElement;
+renderer.setViewport(0, 0, canvas.width, canvas.height)
+
+document.body.appendChild(canvas);
+
+canvas.style.position = 'fixed';
+canvas.style.top = '0';
+canvas.style.left = '0';
+canvas.style.width = '100%';
+canvas.style.height = '100%';
+canvas.style.zIndex = '-1';
 
 // Definir la geometría del plano
 var geometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
@@ -39,7 +48,7 @@ vec3 palette( float t ) {
 }
 
 void main() {
-    vec2 uv = (gl_FragCoord.xy * 2.0 - iResolution.xy) / max(iResolution.x, iResolution.y);;
+    vec2 uv = (gl_FragCoord.xy * 2.0 - iResolution.xy) / max(iResolution.x, iResolution.y);
     vec2 uv0 = uv;
     vec3 finalColor = vec3(0.0);
 
