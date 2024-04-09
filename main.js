@@ -2,7 +2,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.mod
 
 // Configuración de Three.js
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
 
 camera.aspect = window.innerWidth / window.innerHeight;
 camera.updateProjectionMatrix();
@@ -23,7 +23,7 @@ canvas.style.height = '100%';
 canvas.style.zIndex = '-1';
 
 // Definir la geometría del plano
-var geometry = new THREE.PlaneGeometry(8, 8);
+var geometry = new THREE.PlaneGeometry(2, 2);
 
 // Definir los uniformes del shader
 var uniforms = {
@@ -91,11 +91,9 @@ function onWindowResize() {
   renderer.setPixelRatio(window.devicePixelRatio || 1);
 
   // Ajustar el tamaño de la geometría del plano
-  //geometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
-  //plane.geometry = geometry;
 
   // Actualizar la resolución uniforme
-  uniforms.iResolution.value.set(window.innerWidth, window.innerHeight);
+  uniforms.iResolution.value.set(window.innerWidth, window.innerHeight).multiplyScalar(window.devicePixelRatio);
 }
 
 window.addEventListener('resize', onWindowResize, false);
@@ -106,7 +104,7 @@ function onMouseMove(event) {
   var mouseX = (event.clientX);
   var mouseY = -(event.clientY)+window.innerHeight;
   // Actualizar el valor de iMouse
-  uniforms.iMouse.value.set(mouseX, mouseY, 0.0, 0.0);
+  uniforms.iMouse.value.set(mouseX, mouseY, 0.0, 0.0).multiplyScalar(window.devicePixelRatio);
 }
 
 // Agregar un evento de escucha para el movimiento del ratón
