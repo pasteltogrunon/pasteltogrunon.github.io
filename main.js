@@ -34,7 +34,7 @@ vec3 palette( float t ) {
 }
 
 void main() {
-    vec2 uv = (gl_FragCoord.xy * 2.0 - iResolution.xy) / iResolution.y;
+    vec2 uv = (gl_FragCoord.xy * 2.0 - iResolution.xy) / max(iResolution.x, iResolution.y);;
     vec2 uv0 = uv;
     vec3 finalColor = vec3(0.0);
 
@@ -48,7 +48,7 @@ void main() {
         finalColor += col * d;
     }
 
-    float d = length(iMouse.xy - gl_FragCoord.xy) / iResolution.y;
+    float d = length(iMouse.xy - gl_FragCoord.xy) / max(iResolution.x, iResolution.y);;
     float v = abs(sin(d * 50.0 - iTime * 5.0));
     v = clamp(1.5 / v, 0.0, 10.0)*exp(-25.0*d);
     v = pow(v, 5.0);
