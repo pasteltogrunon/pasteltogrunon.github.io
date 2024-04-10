@@ -9,61 +9,34 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      body{
-        margin : 0;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      .font-exo{
-        font-family: "Exo 2", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 700;
-        font-style: normal;
-      }
-
-      .space-mono-regular {
-        font-family: "Space Mono", monospace;
-        font-weight: 400;
-        font-style: normal;
-      }
-
-      .wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000000;
-      opacity: 0.5;
-      }
-
-      .square {
-        height: 1200px;
-        width: 800px;
-        background-color: #000000;
-      }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body style="background-color:black;">
-    <div id="app">
-      <div class="absolute text-white text-center"
-      style = "top:50%; left:50%; transform: translate(-50%, -50%);">
-        <h1 class= "space-mono-regular uppercase tracking-wide">PHYSICIST AND MATHEMATICIAN</h1>
-        <p class= "font-exo text-4xl">PasteltoGrunon
-        </p>
+    <div class="container">
+      <div class="slides">
+        <div class=" text-white">
+          <h1 class= "space-mono-regular uppercase tracking-wide">PHYSICIST AND MATHEMATICIAN</h1>
+          <p class= "font-exo text-4xl">PasteltoGrunon
+          </p>
+        </div>
       </div>
-    </div>
-    <div id="app2">
-      <div class="absolute text-white text-center"
-      style = "top:125%; left:50%; transform: translateX(-50%);">
+      <div class="slides wrapper">
+        <div class="text-white">
         <h1 class= "space-mono-regular uppercase tracking-wide">Tonto quien lo lea</h1>
         <p class= "font-exo text-4xl">FRASE ESTANDAR QUE QUEDE GUAY 
         </p>
         <a
         href="https://github.com/pasteltogrunon"
         class="border px-4 py-2 rounded-lg text-sm space-mono-regular uppercase mt-8 hover:bg-white hover:text-gray-800 inline-block">
-          View Work
+        View Work
         </a>
+        </div>
+      </div>
+      <div class="slides wrapper">
+        <div class="text-white">
+        <h2 class= "space-mono-regular uppercase tracking-wide">Tonto quien lo lea</h2>
+        <p class= "font-exo text-4xl">FRASE ESTANDAR QUE QUEDE GUAY </p>
+        </div>
       </div>
     </div>
     <script type="module" src="/main.js"></script>

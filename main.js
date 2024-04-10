@@ -27,7 +27,7 @@ var geometry = new THREE.PlaneBufferGeometry(2, 2);
 
 // Definir los uniformes del shader
 var uniforms = {
-    iResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+    iResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight).multiplyScalar(window.devicePixelRatio) },
     iTime: { value: 0.0 },
     iMouse: { value: new THREE.Vector4() }
 };
