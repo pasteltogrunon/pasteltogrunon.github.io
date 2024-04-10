@@ -14,6 +14,8 @@ var canvas = renderer.domElement;
 renderer.setViewport(0, 0, canvas.width, canvas.height)
 
 document.body.appendChild(canvas);
+var scrollElement = document.getElementById("scroll");
+var scrollValue = 0;
 
 canvas.style.position = 'fixed';
 canvas.style.top = '0';
@@ -110,10 +112,15 @@ function onMouseMove(event) {
 // Agregar un evento de escucha para el movimiento del ratón
 document.addEventListener('mousemove', onMouseMove, false);
 
+scrollElement.addEventListener("scroll", (event) => {
+  scrollValue = Math.sqrt(scrollElement.scrollTop / (scrollElement.scrollHeight - window.innerHeight));
+  console.log(scrollValue)
+});
+
 // Función de renderizado
 function render() {
   requestAnimationFrame(render);
-  uniforms.iTime.value += 0.01; // Actualizar el tiempo para la animación
+  uniforms.iTime.value += 0.01 * (1.1 - scrollValue); // Actualizar el tiempo para la animación
   renderer.render(scene, camera);
 }
 // Llamar a la función de renderizado

@@ -69,3 +69,23 @@ body{
   bottom: 0;
   position:absolute;
 }
+
+.project-a{
+  aspect-ratio : 1 / 1;
+  height: 20%;
+  position:absolute;
+  opacity:0.7;
+  transition: opacity 0.5s;
+  transition: height 0.3s;
+}
+
+.project-a:hover{
+  opacity: 1;
+  height: 22%;
+}
+
+.top-aligned{
+    vertical-align: top;
+    top: 50px;
+    position:absolute;
+}
