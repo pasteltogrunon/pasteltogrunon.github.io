@@ -125,6 +125,7 @@ scrollElement.addEventListener("scroll", (event) => {
   scrollValue = Math.sqrt(scrollElement.scrollTop / (scrollElement.scrollHeight - window.innerHeight));
 });
 
+//TO DO Pasarlo a JSON
 var images = [
   {
     source: "public/neon-pecker.png", 
