@@ -1,39 +1,5 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.module.js';
 
-// Configuración de Three.js
-var scene = new THREE.Scene();
-var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
-
-camera.aspect = window.innerWidth / window.innerHeight;
-camera.updateProjectionMatrix();
-
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize(innerWidth, innerHeight);
-renderer.setPixelRatio(devicePixelRatio)
-var canvas = renderer.domElement;
-renderer.setViewport(0, 0, canvas.width, canvas.height)
-
-document.body.appendChild(canvas);
-var scrollElement = document.getElementById("scroll");
-var scrollValue = 0;
-
-canvas.style.position = 'fixed';
-canvas.style.top = '0';
-canvas.style.left = '0';
-canvas.style.width = '100%';
-canvas.style.height = '100%';
-canvas.style.zIndex = '-1';
-
-// Definir la geometría del plano
-var geometry = new THREE.PlaneBufferGeometry(2, 2);
-
-// Definir los uniformes del shader
-var uniforms = {
-    iResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight).multiplyScalar(window.devicePixelRatio) },
-    iTime: { value: 0.0 },
-    iMouse: { value: new THREE.Vector4() }
-};
-
 // Cargar el fragment shader
 var fragmentShaderCode = `
 uniform vec2 iResolution;
@@ -73,6 +39,40 @@ void main() {
     gl_FragColor = vec4(finalColor, 1.0);
 }`;
 
+// Configuración de Three.js
+var scene = new THREE.Scene();
+var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
+
+camera.aspect = window.innerWidth / window.innerHeight;
+camera.updateProjectionMatrix();
+
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(devicePixelRatio)
+var canvas = renderer.domElement;
+renderer.setViewport(0, 0, canvas.width, canvas.height)
+
+document.body.appendChild(canvas);
+var scrollElement = document.getElementById("scroll");
+var scrollValue = 0;
+
+canvas.style.position = 'fixed';
+canvas.style.top = '0';
+canvas.style.left = '0';
+canvas.style.width = '100%';
+canvas.style.height = '100%';
+canvas.style.zIndex = '-1';
+
+// Definir la geometría del plano
+var geometry = new THREE.PlaneBufferGeometry(2, 2);
+
+// Definir los uniformes del shader
+var uniforms = {
+    iResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight).multiplyScalar(window.devicePixelRatio) },
+    iTime: { value: 0.0 },
+    iMouse: { value: new THREE.Vector4() }
+};
+
 // Crear el material utilizando el fragment shader
 var material = new THREE.ShaderMaterial({
     uniforms: uniforms,
@@ -85,6 +85,15 @@ scene.add(plane);
 
 // Configuración de la cámara
 camera.position.z = 5;
+
+// Función de renderizado
+function render() {
+  requestAnimationFrame(render);
+  uniforms.iTime.value += 0.01 * (1.1 - scrollValue); // Actualizar el tiempo para la animación
+  renderer.render(scene, camera);
+}
+// Llamar a la función de renderizado
+render();
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -114,14 +123,39 @@ document.addEventListener('mousemove', onMouseMove, false);
 
 scrollElement.addEventListener("scroll", (event) => {
   scrollValue = Math.sqrt(scrollElement.scrollTop / (scrollElement.scrollHeight - window.innerHeight));
-  console.log(scrollValue)
 });
 
-// Función de renderizado
-function render() {
-  requestAnimationFrame(render);
-  uniforms.iTime.value += 0.01 * (1.1 - scrollValue); // Actualizar el tiempo para la animación
-  renderer.render(scene, camera);
-}
-// Llamar a la función de renderizado
-render();
+var images = [
+  {
+    source: "public/neon-pecker.png", 
+    href: "https://elpasteltogrunon.itch.io/neon-pecker"
+  },
+  {
+    source: "public/hamptem.png", 
+    href: "https://adrianacevedoz.itch.io/hamptem-the-hamster"
+  },
+  {
+    source: "public/prometeo.png",
+    href: "https://tomboygotchi.itch.io/prometheusisapussy"
+  }
+];
+var thumbnail = document.getElementById("thumbnail");
+var imageIndex = 0;
+
+document.getElementById("project-left").addEventListener("click", (event)=>{
+  imageIndex--;
+  if(imageIndex===-1){
+    imageIndex = images.length -1;
+  }
+  thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
+  thumbnail.setAttribute("href", images[imageIndex].href)
+})
+
+document.getElementById("project-right").addEventListener("click", (event)=>{
+  imageIndex++;
+  if(imageIndex===images.length){
+    imageIndex = 0;
+  }
+  thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
+  thumbnail.setAttribute("href", images[imageIndex].href)
+})
