@@ -125,43 +125,58 @@ scrollElement.addEventListener("scroll", (event) => {
   scrollValue = Math.sqrt(scrollElement.scrollTop / (scrollElement.scrollHeight - window.innerHeight));
 });
 
-//TO DO Pasarlo a JSON
-import images from './images.json';
-var thumbnail = document.getElementById("thumbnail");
-var projectTitle = document.getElementById("project-title");
-var projectDescription = document.getElementById("project-description");
-var projectImage1 = document.getElementById("project-image1");
-var projectImage2 = document.getElementById("project-image2");
-var projectNumber = document.getElementById("project-number");
 
-var imageIndex = 0;
-
-document.getElementById("project-left").addEventListener("click", (event)=>{
-  imageIndex--;
-  if(imageIndex===-1){
-    imageIndex = images.length -1;
+// Function to load JSON data
+async function loadImages() {
+  const response = await fetch('./images.json');
+  if (!response.ok) {
+    throw new Error('Failed to load images.json');
   }
-  thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
-  thumbnail.setAttribute("href", images[imageIndex].href)
-  projectTitle.innerHTML = images[imageIndex].title;
-  projectDescription.innerHTML = images[imageIndex].description;
-  projectImage1.setAttribute("src", images[imageIndex].image1);
-  projectImage2.setAttribute("src", images[imageIndex].image2);
+  return await response.json();
+}
 
-  projectNumber.innerText = (imageIndex+1) + "/" + images.length;
-})
+// Initialize the project gallery
+async function initGallery() {
+  const images = await loadImages();
+  var thumbnail = document.getElementById("thumbnail");
+  var projectTitle = document.getElementById("project-title");
+  var projectDescription = document.getElementById("project-description");
+  var projectImage1 = document.getElementById("project-image1");
+  var projectImage2 = document.getElementById("project-image2");
+  var projectNumber = document.getElementById("project-number");
 
-document.getElementById("project-right").addEventListener("click", (event)=>{
-  imageIndex++;
-  if(imageIndex===images.length){
-    imageIndex = 0;
-  }
-  thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
-  thumbnail.setAttribute("href", images[imageIndex].href)
-  projectTitle.innerHTML = images[imageIndex].title;
-  projectDescription.innerHTML = images[imageIndex].description;
-  projectImage1.setAttribute("src", images[imageIndex].image1);
-  projectImage2.setAttribute("src", images[imageIndex].image2);
+  var imageIndex = 0;
 
-  projectNumber.innerText = (imageIndex+1) + "/" + images.length;
-})
+  document.getElementById("project-left").addEventListener("click", (event)=>{
+    imageIndex--;
+    if(imageIndex===-1){
+      imageIndex = images.length -1;
+    }
+    thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
+    thumbnail.setAttribute("href", images[imageIndex].href)
+    projectTitle.innerHTML = images[imageIndex].title;
+    projectDescription.innerHTML = images[imageIndex].description;
+    projectImage1.setAttribute("src", images[imageIndex].image1);
+    projectImage2.setAttribute("src", images[imageIndex].image2);
+
+    projectNumber.innerText = (imageIndex+1) + "/" + images.length;
+  })
+
+  document.getElementById("project-right").addEventListener("click", (event)=>{
+    imageIndex++;
+    if(imageIndex===images.length){
+      imageIndex = 0;
+    }
+    thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
+    thumbnail.setAttribute("href", images[imageIndex].href)
+    projectTitle.innerHTML = images[imageIndex].title;
+    projectDescription.innerHTML = images[imageIndex].description;
+    projectImage1.setAttribute("src", images[imageIndex].image1);
+    projectImage2.setAttribute("src", images[imageIndex].image2);
+
+    projectNumber.innerText = (imageIndex+1) + "/" + images.length;
+  })
+}
+
+// Call the initGallery function to initialize the gallery
+initGallery();
