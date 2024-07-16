@@ -1,0 +1,34 @@
+[
+    {
+        "source": "public/neon-pecker.png", 
+        "href": "https://elpasteltogrunon.itch.io/neon-pecker",
+        "title": "Neon Pecker",
+        "description": "Neon Pecker is a 2D synthwave foddian plataformer. I made it in 2023 with the help of a friend for my first game jam. Since we were only two, my roles for the project were: Programming, Art and Sound, UI and Game Design. The game was made with Unity and C#.",
+        "image1": "public/neon-pecker/1.png",
+        "image2": "public/neon-pecker/2.png"
+    },
+    {
+        "source": "public/hamptem.png", 
+        "href": "https://adrianacevedoz.itch.io/hamptem-the-hamster",
+        "title": "Hamptem the Hampster",
+        "description": "Hamptem the Hampster is a 3D infinite runner in a Moebius strip with the shape of a Bernoulli's lemniscate. We made it in a group of 8 people for a 3 day game jam. Its development was hard because of the technical complications of working with a non-orientable surface, but we managed to get it soomthly working for web. My roles for this project were: Gameplay and Tech Programming, and Technical, Environment and VFX Art. The game was made with Unity and C#.",
+        "image1": "public/hamptem/1.png",
+        "image2": "public/hamptem/2.png"
+    },
+    {
+        "source": "public/prometeo.png",
+        "href": "https://tomboygotchi.itch.io/prometheusisapussy",
+        "title": "The Repentance of Prometheus",
+        "description": "The Repentance of Prometheus is a story heavy metroidvania based on the titan Prometheus. We made it in a group of 8 people over a month and we tried a 2.5D artstyle. I took the lead of the project, and my other roles were: Programming, Character Design, Animation, VFX, Environment and Techical Art. The game was made with Unity and C#.",
+        "image1": "public/prometeo/1.png",
+        "image2": "public/prometeo/2.png"
+    },
+    {
+        "source": "public/cards.png",
+        "href": "https://tomboygotchi.itch.io/dawn-of-the-colossus-the-colossus-dawn",
+        "title": "The Dawn of the Colossus: the Colossus' Dawn",
+        "description": "The Dawn of the Colossus is a kingdom building card game. We made it in a group of 6 people for a 5 day game jam. To build a card game in such a short amount of time, the code needed to be really modular and easy to expand. My roles for this project were: Programming and Technical and VFX Art. The game was made with Unity and C#.",
+        "image1": "public/cards/1.png",
+        "image2": "public/cards/2.png"
+    }
+]

@@ -126,21 +126,14 @@ scrollElement.addEventListener("scroll", (event) => {
 });
 
 //TO DO Pasarlo a JSON
-var images = [
-  {
-    source: "public/neon-pecker.png", 
-    href: "https://elpasteltogrunon.itch.io/neon-pecker"
-  },
-  {
-    source: "public/hamptem.png", 
-    href: "https://adrianacevedoz.itch.io/hamptem-the-hamster"
-  },
-  {
-    source: "public/prometeo.png",
-    href: "https://tomboygotchi.itch.io/prometheusisapussy"
-  }
-];
+import images from './images.json';
 var thumbnail = document.getElementById("thumbnail");
+var projectTitle = document.getElementById("project-title");
+var projectDescription = document.getElementById("project-description");
+var projectImage1 = document.getElementById("project-image1");
+var projectImage2 = document.getElementById("project-image2");
+var projectNumber = document.getElementById("project-number");
+
 var imageIndex = 0;
 
 document.getElementById("project-left").addEventListener("click", (event)=>{
@@ -150,6 +143,12 @@ document.getElementById("project-left").addEventListener("click", (event)=>{
   }
   thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
   thumbnail.setAttribute("href", images[imageIndex].href)
+  projectTitle.innerHTML = images[imageIndex].title;
+  projectDescription.innerHTML = images[imageIndex].description;
+  projectImage1.setAttribute("src", images[imageIndex].image1);
+  projectImage2.setAttribute("src", images[imageIndex].image2);
+
+  projectNumber.innerText = (imageIndex+1) + "/" + images.length;
 })
 
 document.getElementById("project-right").addEventListener("click", (event)=>{
@@ -159,4 +158,10 @@ document.getElementById("project-right").addEventListener("click", (event)=>{
   }
   thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
   thumbnail.setAttribute("href", images[imageIndex].href)
+  projectTitle.innerHTML = images[imageIndex].title;
+  projectDescription.innerHTML = images[imageIndex].description;
+  projectImage1.setAttribute("src", images[imageIndex].image1);
+  projectImage2.setAttribute("src", images[imageIndex].image2);
+
+  projectNumber.innerText = (imageIndex+1) + "/" + images.length;
 })
