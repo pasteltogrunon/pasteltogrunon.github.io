@@ -42,6 +42,7 @@ void main() {
 // Configuración de Three.js
 var scene = new THREE.Scene();
 var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
+const clock = new THREE.Clock()
 
 camera.aspect = window.innerWidth / window.innerHeight;
 camera.updateProjectionMatrix();
@@ -89,7 +90,7 @@ camera.position.z = 5;
 // Función de renderizado
 function render() {
   requestAnimationFrame(render);
-  uniforms.iTime.value += 0.01 * (1.1 - scrollValue); // Actualizar el tiempo para la animación
+  uniforms.iTime.value +=  clock.getDelta() * (1.1 - scrollValue) * 0.5; // Actualizar el tiempo para la animación
   renderer.render(scene, camera);
 }
 // Llamar a la función de renderizado
