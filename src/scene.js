@@ -1,10 +1,10 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124/build/three.module.js';
 
-// Cargar el fragment shader
 var fragmentShaderCode = `
 uniform vec2 iResolution;
 uniform float iTime;
 uniform vec4 iMouse;
+uniform float iScroll;
 
 vec3 palette( float t ) {
     vec3 a = vec3(0.5, 0.5, 0.5);
@@ -13,6 +13,13 @@ vec3 palette( float t ) {
     vec3 d = vec3(0.984,0.522,0.0);
 
     return a + b*cos( 6.28318*(c*t+d) );
+}
+
+float easeInOutCubic(float x){
+    if( x < 0.5){
+        return 4.0 * x * x * x;
+    }
+    return 1.0 - pow(-2.0 * x + 2.0, 3.0) * 0.5;
 }
 
 void main() {
@@ -31,10 +38,10 @@ void main() {
     }
 
     float d = length(iMouse.xy - gl_FragCoord.xy) / max(iResolution.x, iResolution.y);;
-    float v = abs(sin(d * 50.0 - iTime * 5.0));
-    v = clamp(1.5 / v, 0.0, 10.0)*exp(-25.0*d);
-    v = pow(v, 5.0);
-    finalColor = clamp(pow(finalColor, vec3(1.1)), 0.0, 5.0) * (1.0 + v);
+    float v = abs(d * 2.5);
+    v = easeInOutCubic(v);
+    v = clamp(v, 0.0, 1.0);
+    finalColor = clamp(pow(finalColor, vec3(1.1)), 0.0, 5.0) * v * (1.0-0.95*iScroll);
 
     gl_FragColor = vec4(finalColor, 1.0);
 }`;
@@ -43,6 +50,8 @@ void main() {
 var scene = new THREE.Scene();
 var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000);
 const clock = new THREE.Clock()
+
+var scrollValue = 0;
 
 camera.aspect = window.innerWidth / window.innerHeight;
 camera.updateProjectionMatrix();
@@ -71,7 +80,8 @@ var geometry = new THREE.PlaneBufferGeometry(2, 2);
 var uniforms = {
     iResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight).multiplyScalar(window.devicePixelRatio) },
     iTime: { value: 0.0 },
-    iMouse: { value: new THREE.Vector4() }
+    iMouse: { value: new THREE.Vector4() },
+    iScroll: { value: 0.0 }
 };
 
 // Crear el material utilizando el fragment shader
@@ -90,7 +100,7 @@ camera.position.z = 5;
 // Función de renderizado
 function render() {
   requestAnimationFrame(render);
-  uniforms.iTime.value +=  clock.getDelta() * (1.1 - scrollValue) * 0.5; // Actualizar el tiempo para la animación
+  uniforms.iTime.value -=  clock.getDelta() *(1.1 - scrollValue)* 0.5; // Actualizar el tiempo para la animación
   renderer.render(scene, camera);
 }
 // Llamar a la función de renderizado
@@ -122,62 +132,15 @@ function onMouseMove(event) {
 // Agregar un evento de escucha para el movimiento del ratón
 document.addEventListener('mousemove', onMouseMove, false);
 
-scrollElement.addEventListener("scroll", (event) => {
-  scrollValue = Math.sqrt(scrollElement.scrollTop / (scrollElement.scrollHeight - window.innerHeight));
-});
+// Función para manejar el evento de scroll
+function onScroll(event) {
+    scrollValue = window.scrollY || document.documentElement.scrollTop;
+    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    scrollValue = maxScroll > 0 ? scrollValue / maxScroll : 0; // Remap scrollValue to range [0, 1]
+    console.log(scrollValue);
 
-
-// Function to load JSON data
-async function loadImages() {
-  const response = await fetch('./images.json');
-  if (!response.ok) {
-    throw new Error('Failed to load images.json');
-  }
-  return await response.json();
+    uniforms.iScroll.value = scrollValue; 
 }
 
-// Initialize the project gallery
-async function initGallery() {
-  const images = await loadImages();
-  var thumbnail = document.getElementById("thumbnail");
-  var projectTitle = document.getElementById("project-title");
-  var projectDescription = document.getElementById("project-description");
-  var projectImage1 = document.getElementById("project-image1");
-  var projectImage2 = document.getElementById("project-image2");
-  var projectNumber = document.getElementById("project-number");
-
-  var imageIndex = 0;
-
-  document.getElementById("project-left").addEventListener("click", (event)=>{
-    imageIndex--;
-    if(imageIndex===-1){
-      imageIndex = images.length -1;
-    }
-    thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
-    thumbnail.setAttribute("href", images[imageIndex].href)
-    projectTitle.innerHTML = images[imageIndex].title;
-    projectDescription.innerHTML = images[imageIndex].description;
-    projectImage1.setAttribute("src", images[imageIndex].image1);
-    projectImage2.setAttribute("src", images[imageIndex].image2);
-
-    projectNumber.innerText = (imageIndex+1) + "/" + images.length;
-  })
-
-  document.getElementById("project-right").addEventListener("click", (event)=>{
-    imageIndex++;
-    if(imageIndex===images.length){
-      imageIndex = 0;
-    }
-    thumbnail.firstChild.setAttribute("src", images[imageIndex].source)
-    thumbnail.setAttribute("href", images[imageIndex].href)
-    projectTitle.innerHTML = images[imageIndex].title;
-    projectDescription.innerHTML = images[imageIndex].description;
-    projectImage1.setAttribute("src", images[imageIndex].image1);
-    projectImage2.setAttribute("src", images[imageIndex].image2);
-
-    projectNumber.innerText = (imageIndex+1) + "/" + images.length;
-  })
-}
-
-// Call the initGallery function to initialize the gallery
-initGallery();
+// Agregar un evento de escucha para el scroll
+window.addEventListener('scroll', onScroll, false);

@@ -2,60 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="public/top.svg" />
+    <link rel="icon" type="image/svg+xml" href="top.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pastelto Grunon</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <title>ElPasteltoGrunon</title>
   </head>
-  <body style="background-color:black;">
-    <div class="container" id="scroll">
-      <div class="slides">
-        <div class=" text-white">
-          <h1 class= "space-mono-regular uppercase tracking-wide size3xl">PHYSICIST AND MATHEMATICIAN</h1>
-          <p class= "font-exo size4xl">PasteltoGrunon
-          </p>
-        </div>
-        <img src="public/arrow.png" class="bottom-img"/>
-      </div>
-      <div class="slides wrapper">
-        <div class="text-white top-aligned">
-          <h1 class= "space-mono-regular uppercase tracking-wide size3xl">Check out my work</h1>
-          <p class= "font-exo size4xl">VIDEOGAMES </p>
-        </div>
-        <p id = "project-number" class= "space-mono-regular uppercase tracking-wide size2xl social-a">1/4</p>
-        <div class="column-container">
-          <div class="side-column">
-            <img id="project-image1" src="public/neon-pecker/1.png" style= "margin-top: 1vw;"/>
-            <img id="project-image2" src="public/neon-pecker/2.png" style= "margin-top: 1vw;"/>
-          </div>
-          <div class="center-column">
-            <p id="project-title" class="font-exo size4xl">Neon Pecker</p>
-            <p id="project-description" class="font-exo size2xl" style="text-align: justify;">Neon Pecker is a 2D synthwave foddian plataformer. I made it in 2023 with the help of a friend for my first game jam. Since we were only two, my roles for the project were: Programming, Art and Sound, UI and Game Design. The game was made with Unity and C#.</p>
-          </div>
-          <div class="side-column">
-            <div class="project-container">
-              <a id="thumbnail" href="https://elpasteltogrunon.itch.io/neon-pecker" class="rounded-lg project-a" ><img src="public/neon-pecker.png" style="aspect-ratio : 1 / 1; width:10vw; border-radius: 25px;" /></a>
-              <h1 class= "space-mono-regular uppercase tracking-wide size3xl">CLICK ME</h1>
-            </div>
-          </div>
-        </div>
-        <a id="project-left" class="project-a fullsize3xl left-arrow-a" ><img src="public/arrow.png" style="transform: rotate(90deg);" /></h1>
-        <a id="project-right" class="project-a fullsize3xl right-arrow-a" ><img src="public/arrow.png" style="transform: rotate(-90deg);" /></h1>
-      </div>
-      <div class="slides wrapper">
-        <div class="text-white">
-          <a href="public/CV.pdf" class= "font-exo size4xl">MY CV </a>
-        </div>
-        <h2 class= "space-mono-regular uppercase tracking-wide social-a size2xl" style="transform: translate(0, -3vw);">Contact Me</h2>
-        <a href="https://linkedin.com/in/juan-fernández-esteban-5a4b4b21a" class="social-a"><img src="public/linkedin.png" style="transform: translate(-4vw, -1vw); height: 3vw;" /></a>
-        <a href="https://github.com/pasteltogrunon" class="social-a"><img src="public/github.png" style="transform: translate(0, -1vw); height: 3vw;" /></a>
-        <a href= "mailto: juanfernandezesteban@gmail.com" class="social-a"><img src="public/mail.png" style="transform: translate(4vw, -1vw); height: 3vw;" /></a>
-      </div>
-    </div>
-    <script type="module" src="/main.js"></script>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/scene.js"></script>
   </body>
 </html>
