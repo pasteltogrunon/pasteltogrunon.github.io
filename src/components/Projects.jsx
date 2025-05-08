@@ -25,7 +25,7 @@ export default function Projects() {
             Check out my work
           </h1>
           <p>
-            I have worked on a variety of projects, from 2D platformers to 3D infinite runners. Here are some of my favorites:
+            Here are some of my favorite projects:
           </p>
         </div>
         <Box sx={{ width: '100%' }} padding={4}>
