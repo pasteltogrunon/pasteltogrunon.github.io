@@ -4,6 +4,8 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Fade from '@mui/material/Fade';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#17181b',
@@ -14,6 +16,17 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.applyStyles('dark', {
     backgroundColor: '#17181b',
   }),
+}));
+
+const BootstrapTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} arrow classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.common.black,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.black,
+  },
 }));
 
 export default function Projects() {
@@ -32,24 +45,27 @@ export default function Projects() {
             <Grid container spacing={12} justifyContent="center">
             {projects.map((project) => (
                 <Grid size = {{ xs: 12, sm: 6, md: 4 }}>
-                <a
-                    href={project.link}
-                    key={project.image}>
-                    <div>
-                    <img
-                        alt="image"
-                        src={project.image}
-                    />
-                    <div>
-                        <h2>
-                        {project.subtitle}
-                        </h2>
-                        <h1>
-                        {project.title}
-                        </h1>
-                    </div>
-                    </div>
-                </a>
+                  <BootstrapTooltip title={project.description} arrow placement="bottom" slots={{transition: Fade,}}>
+                    <a
+                        href={project.link}
+                        key={project.image}>
+                        <div>
+                        <img
+                            alt="image"
+                            src={project.image}
+                        />
+                        <div>
+                            <h2>
+                            {project.subtitle}
+                            </h2>
+                            <h1>
+                            {project.title}
+                            </h1>
+                        </div>
+                        </div>
+                    </a>
+
+                  </BootstrapTooltip>
             </Grid>
             ))}
             </Grid>
