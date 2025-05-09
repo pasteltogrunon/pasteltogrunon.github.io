@@ -1,6 +1,8 @@
 import hamptem from './assets/hamptem.png'
 import neonpecker from './assets/neon-pecker.png'
 import cards from './assets/dawn-of-the-colossus.png'
+import reiko from './assets/reiko.png'
+import prometeo from './assets/prometeo.png'
 
 export const projects = [
     {
@@ -24,7 +26,7 @@ export const projects = [
       subtitle: "A metroidvania about the myth of Prometheus",
       description:
         "The Repentance of Prometheus is a story heavy metroidvania based on the titan Prometheus. We made it in a group of 8 people over a month and we tried a 2.5D artstyle. I took the lead of the project, and my other roles were: Programming, Character Design, Animation, VFX, Environment and Techical Art. The game was made with Unity and C#.",
-      image: "src/assets/prometeo.png",
+      image: prometeo,
       link: "https://tomboygotchi.itch.io/prometheusisapussy",
     },
     {
@@ -40,7 +42,7 @@ export const projects = [
       subtitle: "A survivor-like game about possessing enemies",
       description:
         "In Reiko no Virus, you play as a virus anime girl that possesses enemies. This project was done with a great focus in a SOLID architectural design.",
-      image: "src/assets/reiko.png",
+      image: reiko,
       link: "https://tomboygotchi.itch.io/reiko-no-virus-mutant-bio-menace",
     }
 
