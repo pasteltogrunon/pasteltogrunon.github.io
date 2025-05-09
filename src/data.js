@@ -6,7 +6,7 @@ export const projects = [
       subtitle: "Infinite runner in a Moebius strip",
       description:
         "Hamptem the Hampster is a 3D infinite runner in a Moebius strip with the shape of a Bernoulli's lemniscate. We made it in a group of 8 people for a 3 day game jam. Its development was hard because of the technical complications of working with a non-orientable surface, but we managed to get it soomthly working for web. My roles for this project were: Gameplay and Tech Programming, and Technical, Environment and VFX Art. The game was made with Unity and C#.",
-      image: "src/assets/hamptem.png",
+      image: "/pasteltogrunon.github.io/src/assets/hamptem.png",
       link: "https://adrianacevedoz.itch.io/hamptem-the-hamster",
     },
     {
@@ -14,7 +14,7 @@ export const projects = [
       subtitle: "City building card game",
       description:
         "The Dawn of the Colossus is a kingdom building card game. We made it in a group of 6 people for a 5 day game jam. To build a card game in such a short amount of time, the code needed to be really modular and easy to expand. My roles for this project were: Programming and Technical and VFX Art. The game was made with Unity and C#.",
-      image: "src/assets/dawn-of-the-colossus.png",
+      image: "/pasteltogrunon.github.io/src/assets/dawn-of-the-colossus.png",
       link: "https://tomboygotchi.itch.io/dawn-of-the-colossus-the-colossus-dawn",
     },
     {
