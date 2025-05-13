@@ -55,12 +55,12 @@ export default function Projects() {
                             src={project.image}
                         />
                         <div>
-                            <h2>
+                            <h4>
                             {project.subtitle}
-                            </h2>
-                            <h1>
+                            </h4>
+                            <h2>
                             {project.title}
-                            </h1>
+                            </h2>
                         </div>
                         </div>
                     </a>
