@@ -106,11 +106,73 @@ float scrollColorDecay(float value)
 {
     return 1.0-0.95*easeInOutCubic(pow(value, 0.2));
 }
-
-void main() 
+vec3 palette1(float t)
 {
-    vec2 uv = (gl_FragCoord.xy * 2.0 - iResolution.xy) / max(iResolution.x, iResolution.y);
-    vec2 uv0 = uv;
+    vec3 a = vec3(1.0, 1.0, 1.0);
+    vec3 b = vec3(1.0, 0.5, 0.0);
+    vec3 c = vec3(0.5, 1.0, 0.0);
+    
+    float value = sin(t) * 0.5 + 0.25;
+    
+    return value * b + (1.0 - value) * c;
+}
+
+vec3 palette2(float t, float t2)
+{
+    vec3 a = vec3(0.0, 0.5, 1.0);
+    vec3 b = vec3(1.0, 0.5, 0.0);
+    vec3 c = vec3(0.5, 1.0, 0.0);
+    
+    float value = t * 0.5 + 0.25;
+    float value2 = sin(t2) * 0.5 + 0.25;
+    
+    return value2 * (value * b + (1.0 - value) * c) + (1.0 - value2) * a;
+}
+
+vec3 palette3(float t)
+{
+    vec3 a = vec3(1.0, 1.0, 1.0);
+    vec3 b = vec3(0.0, 0.5, 1.0);
+    vec3 c = vec3(0.5, 1.0, 0.0);
+    
+    float value = sin(t) * 0.5 + 0.25;
+    
+    return value * b + (1.0 - value) * c;
+}
+
+
+vec3 third(vec2 uv)
+{
+    float s = sin(-iTime-length(uv));
+    float s2 = sin((-iTime-length(uv))*0.5- 0.2);
+    
+    float d = pow(0.01/abs(s), 0.5) + pow(0.01/abs(s2), 0.5);
+    
+    float p = pow(abs(cos(s)/length(uv)*0.25), 8.0);
+    
+    vec2 newUV = uv * exp(-0.1*length(uv))*10.0;
+    
+    float y = 0.5*cos(abs(uv.x)*5.0-iTime*15.0)*sin(iTime*3.0);
+    float e = max(abs(y-newUV.y)+length(uv)* 1.0, 0.0);
+    
+    e = pow(0.1/e, 1.1)*pow(1.2*abs(cos(abs(uv.x)*0.7-iTime*1.0)), 15.0);
+    
+    
+    vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
+    
+    color += vec4(p*palette2(uv.y/length(uv)*2.0, length(uv)*5.0), 1.0);
+    
+    color += vec4(d*palette1(-iTime + length(uv)), 1.0);
+    
+    color += vec4(e*palette3(-iTime + abs(uv.y)*3.0), 1.0);
+    
+    return 0.5*clamp(color.rgb, 0.0, 1.0);
+}
+
+vec3 first(vec2 uvIn)
+{
+    vec2 uv0 = uvIn;
+    vec2 uv = uvIn;
     vec3 finalColor = vec3(0.0);
 
     for (float i = 0.0; i < 4.0; i++) {
@@ -123,11 +185,19 @@ void main()
         finalColor += col * d;
     }
 
+    finalColor = clamp(pow(finalColor, vec3(1.1)), 0.0, 5.0);
+    return finalColor;
+}
+
+void main() 
+{
+    vec2 uv = (gl_FragCoord.xy * 2.0 - iResolution.xy) / max(iResolution.x, iResolution.y);
+    float scrollLerp = 1.0-(scrollColorDecay(iScroll) - 0.05)/0.95;
     float d = length(iMouse.xy - gl_FragCoord.xy) / max(iResolution.x, iResolution.y);;
     float v = abs(d * 2.5);
     v = easeInOutCubic(v);
     v = clamp(v, 0.0, 1.0);
-    finalColor = clamp(pow(finalColor, vec3(1.1)), 0.0, 5.0) * v * scrollColorDecay(iScroll);
+    vec3 finalColor =  (first(uv)*scrollLerp + (1.0-scrollLerp) *third(uv))* v * scrollColorDecay(iScroll);
 
     gl_FragColor = vec4(finalColor, 1.0);
 }`,xz=new Oi.ShaderMaterial({uniforms:ml,fragmentShader:vz}),Tz=new Oi.Mesh(yz,xz);Lx.add(Tz);vs.position.z=5;function Ux(){requestAnimationFrame(Ux),ml.iTime.value-=gz.getDelta()*(1.1-Qr)*.5,na.render(Lx,vs)}Ux();function Sz(){vs.aspect=window.innerWidth/window.innerHeight,vs.updateProjectionMatrix(),na.setSize(window.innerWidth,window.innerHeight),na.setPixelRatio(window.devicePixelRatio||1),ml.iResolution.value.set(window.innerWidth,window.innerHeight).multiplyScalar(window.devicePixelRatio)}window.addEventListener("resize",Sz,!1);function bz(a){var t=a.clientX,n=-a.clientY+window.innerHeight;ml.iMouse.value.set(t,n,0,0).multiplyScalar(window.devicePixelRatio)}document.addEventListener("mousemove",bz,!1);function Ez(a){Qr=window.scrollY||document.documentElement.scrollTop;var t=document.documentElement.scrollHeight-window.innerHeight;Qr=t>0?Qr/t:0,console.log(Qr),ml.iScroll.value=Qr}window.addEventListener("scroll",Ez,!1);
